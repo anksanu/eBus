@@ -1,8 +1,12 @@
 module.exports = {
-    entry: "./tests/suite.js",
+    entry: {
+        test : "./tests/suite.js",
+        eBus : './build.js',
+        nodeBuild: './build.js'
+    },
     output: {
         path: __dirname + '/build',
-        filename: "test.js"
+        filename: "[name].js"
     },
     module: {
         loaders: [

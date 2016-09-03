@@ -1,4 +1,4 @@
-/******/ (function(modules) { // webpackBootstrap
+/******/ module.exports = (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -44,18 +44,6 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-	
-	var _listner_target_suite = __webpack_require__(6);
-	
-	var _listner_target_suite2 = _interopRequireDefault(_listner_target_suite);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -69,15 +57,15 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * - Entities can listen to events that happened in the past
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 	
-	var _event = __webpack_require__(2);
+	var _event = __webpack_require__(1);
 	
 	var _event2 = _interopRequireDefault(_event);
 	
-	var _listener = __webpack_require__(3);
+	var _listener = __webpack_require__(2);
 	
 	var _listener2 = _interopRequireDefault(_listener);
 	
-	var _logger = __webpack_require__(4);
+	var _logger = __webpack_require__(3);
 	
 	var _logger2 = _interopRequireDefault(_logger);
 	
@@ -271,7 +259,7 @@
 	exports.default = eBus;
 
 /***/ },
-/* 2 */
+/* 1 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -289,7 +277,7 @@
 	exports.default = Event;
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -300,11 +288,11 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _logger = __webpack_require__(4);
+	var _logger = __webpack_require__(3);
 	
 	var _logger2 = _interopRequireDefault(_logger);
 	
-	var _utils = __webpack_require__(5);
+	var _utils = __webpack_require__(4);
 	
 	var _utils2 = _interopRequireDefault(_utils);
 	
@@ -410,7 +398,7 @@
 	exports.default = Listener;
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -453,7 +441,7 @@
 	}();
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -467,175 +455,6 @@
 	    }
 	};
 
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _eBus = __webpack_require__(1);
-	
-	var _eBus2 = _interopRequireDefault(_eBus);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var EBusInstance = new _eBus2.default(); /**
-	                                          * Created by ankit.agrawal on 27/08/16.
-	                                          */
-	
-	EBusInstance.addListener([{
-	    name: '1',
-	    event: ['First_Event', 'Second_Event'],
-	    routine: function routine(payload) {
-	        console.log('Listener 1');
-	        payload.value += '1';
-	    },
-	    options: {
-	        target: 'First_Publisher',
-	        once: false
-	    }
-	}, {
-	    name: '2',
-	    event: 'First_Event',
-	    routine: function routine(payload) {
-	        console.log('Listener 2');
-	        payload.value += '2';
-	    },
-	    options: {
-	        target: 'Second_Publisher'
-	    }
-	}, {
-	    name: '3',
-	    event: 'Second_Event',
-	    routine: function routine(payload) {
-	        console.log('Listener 3');
-	        payload.value += '3';
-	    },
-	    options: {
-	        target: 'Second_Publisher'
-	    }
-	}, {
-	    name: '2',
-	    event: ['First_Event', 'Second_Event'],
-	    routine: function routine(payload) {
-	        console.log('Listener 4', payload.name);
-	        payload.value += '4';
-	    },
-	    options: {}
-	}]);
-	
-	var TestCaseSuite = [
-	/**
-	 * Expected Output
-	 * Listener 1
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['First_Event', 'First_Publisher', {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '14'
-	},
-	/**
-	 * Expected Output
-	 * Listener 2
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['First_Event', 'Second_Publisher', {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '24'
-	},
-	/**
-	 * Expected Output
-	 * Listener 1
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['Second_Event', 'First_Publisher', {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '14'
-	},
-	/**
-	 * Expected Output
-	 * Listener 3
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['Second_Event', 'Second_Publisher', {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '34'
-	},
-	/**
-	 * Expected Output
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['First_Event', void 0, {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '4'
-	},
-	/**
-	 * Expected Output
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['Second_Event', void 0, {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '4'
-	}];
-	
-	console.group('Listener Target Suite');
-	var count = 0;
-	var _iteratorNormalCompletion = true;
-	var _didIteratorError = false;
-	var _iteratorError = undefined;
-	
-	try {
-	    for (var _iterator = TestCaseSuite[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	        var testCase = _step.value;
-	
-	        var payload = testCase.query[2],
-	            result = testCase.result;
-	
-	        payload.value = '';
-	        console.group('Test', ++count);
-	        EBusInstance.trigger.apply(EBusInstance, testCase.query);
-	        if (payload.value === result) {
-	            console.info("Test Passed");
-	        } else {
-	            console.info("Test Failed");
-	        }
-	        console.groupEnd();
-	    }
-	} catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	} finally {
-	    try {
-	        if (!_iteratorNormalCompletion && _iterator.return) {
-	            _iterator.return();
-	        }
-	    } finally {
-	        if (_didIteratorError) {
-	            throw _iteratorError;
-	        }
-	    }
-	}
-	
-	console.groupEnd();
-
 /***/ }
 /******/ ]);
-//# sourceMappingURL=test.js.map
+//# sourceMappingURL=build.js.map

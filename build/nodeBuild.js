@@ -1,4 +1,4 @@
-/******/ (function(modules) { // webpackBootstrap
+/******/module.exports =  (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -46,11 +46,19 @@
 
 	"use strict";
 	
-	var _listner_target_suite = __webpack_require__(6);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var _listner_target_suite2 = _interopRequireDefault(_listner_target_suite);
-
+	var _eBus = __webpack_require__(1);
+	
+	var _eBus2 = _interopRequireDefault(_eBus);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _eBus2.default; /**
+	                                   * Created by ankit.agrawal on 03/09/16.
+	                                   */
 
 /***/ },
 /* 1 */
@@ -467,175 +475,6 @@
 	    }
 	};
 
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _eBus = __webpack_require__(1);
-	
-	var _eBus2 = _interopRequireDefault(_eBus);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var EBusInstance = new _eBus2.default(); /**
-	                                          * Created by ankit.agrawal on 27/08/16.
-	                                          */
-	
-	EBusInstance.addListener([{
-	    name: '1',
-	    event: ['First_Event', 'Second_Event'],
-	    routine: function routine(payload) {
-	        console.log('Listener 1');
-	        payload.value += '1';
-	    },
-	    options: {
-	        target: 'First_Publisher',
-	        once: false
-	    }
-	}, {
-	    name: '2',
-	    event: 'First_Event',
-	    routine: function routine(payload) {
-	        console.log('Listener 2');
-	        payload.value += '2';
-	    },
-	    options: {
-	        target: 'Second_Publisher'
-	    }
-	}, {
-	    name: '3',
-	    event: 'Second_Event',
-	    routine: function routine(payload) {
-	        console.log('Listener 3');
-	        payload.value += '3';
-	    },
-	    options: {
-	        target: 'Second_Publisher'
-	    }
-	}, {
-	    name: '2',
-	    event: ['First_Event', 'Second_Event'],
-	    routine: function routine(payload) {
-	        console.log('Listener 4', payload.name);
-	        payload.value += '4';
-	    },
-	    options: {}
-	}]);
-	
-	var TestCaseSuite = [
-	/**
-	 * Expected Output
-	 * Listener 1
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['First_Event', 'First_Publisher', {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '14'
-	},
-	/**
-	 * Expected Output
-	 * Listener 2
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['First_Event', 'Second_Publisher', {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '24'
-	},
-	/**
-	 * Expected Output
-	 * Listener 1
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['Second_Event', 'First_Publisher', {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '14'
-	},
-	/**
-	 * Expected Output
-	 * Listener 3
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['Second_Event', 'Second_Publisher', {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '34'
-	},
-	/**
-	 * Expected Output
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['First_Event', void 0, {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '4'
-	},
-	/**
-	 * Expected Output
-	 * Listener 4 eBus
-	 */
-	{
-	    query: ['Second_Event', void 0, {
-	        name: 'eBus',
-	        value: ''
-	    }],
-	    result: '4'
-	}];
-	
-	console.group('Listener Target Suite');
-	var count = 0;
-	var _iteratorNormalCompletion = true;
-	var _didIteratorError = false;
-	var _iteratorError = undefined;
-	
-	try {
-	    for (var _iterator = TestCaseSuite[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	        var testCase = _step.value;
-	
-	        var payload = testCase.query[2],
-	            result = testCase.result;
-	
-	        payload.value = '';
-	        console.group('Test', ++count);
-	        EBusInstance.trigger.apply(EBusInstance, testCase.query);
-	        if (payload.value === result) {
-	            console.info("Test Passed");
-	        } else {
-	            console.info("Test Failed");
-	        }
-	        console.groupEnd();
-	    }
-	} catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	} finally {
-	    try {
-	        if (!_iteratorNormalCompletion && _iterator.return) {
-	            _iterator.return();
-	        }
-	    } finally {
-	        if (_didIteratorError) {
-	            throw _iteratorError;
-	        }
-	    }
-	}
-	
-	console.groupEnd();
-
 /***/ }
 /******/ ]);
-//# sourceMappingURL=test.js.map
+//# sourceMappingURL=nodeBuild.js.map
