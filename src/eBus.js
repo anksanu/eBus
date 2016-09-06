@@ -9,10 +9,14 @@ import EventClass from './models/event';
 import ListenerClass from './models/listener';
 import Logger from './logger';
 
+function executeListenerRoutine(listener, target, payload) {
+    listener.execute.apply(listener, [target, payload]);
+}
+
 class eBus {
     constructor(options) {
         this._eventListenerMap = new Map();
-        this._eventTriggeredFlag = new Map();
+        this._eventTriggeredMap = new Map();
     }
 
     /**
@@ -42,12 +46,25 @@ class eBus {
         }
 
         for (let payloadObj of listenerPayload) {
-            let eventList = (payloadObj.event instanceof Array) ? payloadObj.event : [payloadObj.event];
-            let listenerObj = new ListenerClass(payloadObj.name, payloadObj.routine, payloadObj.context, payloadObj.options);
+            let eventList = (payloadObj.event instanceof Array) ? payloadObj.event : [payloadObj.event],
+                listenerObj = new ListenerClass(payloadObj.name, payloadObj.routine, payloadObj.context, payloadObj.options),
+                isListenToPastEvents = (payloadObj.options && payloadObj.options.rememberPast) || false;
+
             listenerIdsList.push(payloadObj.name);
+
             for (let event of eventList) {
                 this._eventListenerMap.has(event) ? this._eventListenerMap.get(event).push(listenerObj) : this._eventListenerMap.set(event, [listenerObj]);
                 Logger.log(payloadObj.name, 'listener is attached with', event);
+
+                /**
+                 * Executing the listener routine in case the listener wants to listen to events that happened in the past
+                 */
+                if(isListenToPastEvents){
+                    let isEventTriggeredInPast = this._eventTriggeredMap.has(event) ? true : false,
+                        lastEventPayload = isEventTriggeredInPast ? this._eventTriggeredMap.get(event) : void 0;
+
+                    isEventTriggeredInPast ? executeListenerRoutine(listenerObj, lastEventPayload.target, lastEventPayload.payload) : void 0;
+                }
             }
         }
         return listenerIdsList;
@@ -60,7 +77,7 @@ class eBus {
      * @param eventName {string}[Required] Name of the event that need not to be listened any more.
      */
     removeListener(listenerName, eventName) {
-        let listenersList = this._eventListenerMap.get(eventName);
+        let listenersList = this._eventListenerMap.get(eventName) || [];
         let updatedListnersList = [];
 
         for (let listener of listenersList) {
@@ -79,10 +96,11 @@ class eBus {
      * @param payload {Array} [Optional] The payload that the event publisher would want to be passed to all the side effects.
      */
     trigger(event, target, ...payload) {
-        let listenersList = this._eventListenerMap.get(event);
-        this._eventTriggeredFlag.set(event, {executed: true, payload: payload});
+        let listenersList = this._eventListenerMap.get(event) || [];
+        this._eventTriggeredMap.set(event, {executed: true, payload: payload, target: target});
         for (let listener of listenersList) {
-            listener.execute.apply(listener, [target, payload]);
+            // listener.execute.apply(listener, [target, payload]);
+            executeListenerRoutine(listener, target, payload);
         }
     }
 }
