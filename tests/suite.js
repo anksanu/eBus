@@ -3,3 +3,4 @@
  */
 
 import ListenerTargetSuite from "./listner_target_suite";
+import ListenerPastEventsSuite from "./listener_past_events_suite";
