@@ -10,6 +10,7 @@
  */
 
 import EventClass from './models/event';
+import Utils from './utils';
 import ListenerClass from './models/listener';
 import Logger from './logger';
 
@@ -50,6 +51,7 @@ class eBus {
         }
 
         for (let payloadObj of listenerPayload) {
+            payloadObj.name = payloadObj.name || Utils.guid();
             let eventList = (payloadObj.event instanceof Array) ? payloadObj.event : [payloadObj.event],
                 listenerObj = new ListenerClass(payloadObj.name, payloadObj.routine, payloadObj.context, payloadObj.options),
                 isListenToPastEvents = (payloadObj.options && payloadObj.options.rememberPast) || false;
