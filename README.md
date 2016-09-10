@@ -13,8 +13,8 @@ eBus is an implementation of an Event Bus, it's open-source under MIT license
 
 
 ## Adding eBus in your project
-```javascript
 Add [ebus.min.js](https://raw.githubusercontent.com/anksanu/eBus/master/release/eBus.min.js "Ebus") in you web page
+```javascript
 let(var) eBusInstance = new eBus();
 ```
 
