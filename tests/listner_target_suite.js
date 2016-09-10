@@ -139,5 +139,3 @@ for (let testCase of TestCaseSuite) {
     console.groupEnd();
 }
 console.groupEnd();
-
-window.eBus = EBusInstance;

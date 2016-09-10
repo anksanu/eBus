@@ -65,7 +65,7 @@ class eBus {
                 /**
                  * Executing the listener routine in case the listener wants to listen to events that happened in the past
                  */
-                if(isListenToPastEvents){
+                if (isListenToPastEvents) {
                     let isEventTriggeredInPast = this._eventTriggeredMap.has(event) ? true : false,
                         lastEventPayload = isEventTriggeredInPast ? this._eventTriggeredMap.get(event) : void 0;
 
@@ -113,18 +113,20 @@ class eBus {
     /**
      * @return [Array] returns the list of the Events and mapped listeners name
      */
-    getEvents(){
-        let eventList = [];
-        let eventKeys = this._eventListenerMap.keys();
-        for(let event of eventKeys){
+    getEvents() {
+        let eventList = [],
+            eventKeys = this._eventListenerMap.keys();
+
+        for (let event of eventKeys) {
             let listeners = this._eventListenerMap.get(event),
                 tempObj = {
-                    event : event,
-                    listener : []
+                    event: event,
+                    listener: []
                 };
-            for(let listener of listeners){
+            for (let listener of listeners) {
                 tempObj.listener.push(listener.listenerUid);
             }
+
             eventList.push(tempObj);
         }
 
