@@ -4,4 +4,5 @@
 
 import eBus from "./src/eBus";
 
+window.eBus = eBus;
 export default eBus;

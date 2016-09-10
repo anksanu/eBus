@@ -1,5 +1,3 @@
-# Under Development
-
 # eBus : A JavaScript Event Bus
 
 eBus is an implementation of an Event Bus, it's open-source under MIT license
@@ -16,7 +14,8 @@ eBus is an implementation of an Event Bus, it's open-source under MIT license
 
 ## Adding eBus in your project
 ```javascript
-let eBusInstance = new eBus();
+Add [ebus.min.js](https://raw.githubusercontent.com/anksanu/eBus/master/release/eBus.min.js "Ebus") in you web page
+let(var) eBusInstance = new eBus();
 ```
 
 ## API
