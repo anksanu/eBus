@@ -22,7 +22,7 @@ let eBusInstance = new eBus();
 ## API
 ### Add Listener
 ```javascript
-- @returns : [Array] List of listener id's
+- @returns : [Array] List of listener names
 eBusInstance.addListener(<Array>[Listener Config]);
 ```
 
