@@ -13,8 +13,9 @@ eBus is an implementation of an Event Bus, it's open-source under MIT license
         - Pass explicit context to the listener routine
         - Attach a listener to multiple events
 
-#Examples
+# Examples
 
+```sh
 let EBusInstance = new eBus();
 
 EBusInstance.addListener([{
@@ -31,3 +32,4 @@ EBusInstance.addListener([{
 
 
 EBusInstance.trigger(<string>[Event Name], <string>[Publisher], <object>[Payload]);
+```
