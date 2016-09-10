@@ -109,6 +109,27 @@ class eBus {
             executeListenerRoutine(listener, target, payload);
         }
     }
+
+    /**
+     * @return [Array] returns the list of the Events and mapped listeners name
+     */
+    getEvents(){
+        let eventList = [];
+        let eventKeys = this._eventListenerMap.keys();
+        for(let event of eventKeys){
+            let listeners = this._eventListenerMap.get(event),
+                tempObj = {
+                    event : event,
+                    listener : []
+                };
+            for(let listener of listeners){
+                tempObj.listener.push(listener.listenerUid);
+            }
+            eventList.push(tempObj);
+        }
+
+        return eventList;
+    }
 }
 
 export default eBus;

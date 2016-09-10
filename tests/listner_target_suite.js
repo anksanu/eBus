@@ -7,7 +7,7 @@ import EBus from '../src/eBus';
 const EBusInstance = new EBus();
 
 EBusInstance.addListener([{
-    name: '1',
+    name: void 0,
     event: ['First_Event', 'Second_Event'],
     routine: function (payload) {
         console.log('Listener 1');
@@ -18,7 +18,7 @@ EBusInstance.addListener([{
         once: false
     }
 }, {
-    name: '2',
+    name: void 0,
     event: 'First_Event',
     routine: function (payload) {
         console.log('Listener 2');
@@ -139,3 +139,5 @@ for (let testCase of TestCaseSuite) {
     console.groupEnd();
 }
 console.groupEnd();
+
+window.eBus = EBusInstance;

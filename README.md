@@ -69,3 +69,13 @@ eBusInstance.removeListener(<listenerName>, <eventName>)
 eBusInstance.trigger(<eventName>, <targetName>, <payload>);
 ```
 
+### Get Events
+```javascript
+- @return : [Array] Return an array of [Event Object]
+-
+- Event Object
+-- @event : [String] Name of the Event
+-- @listener : [Array] List of listener names attached with this event
+
+eBusInstance.getEventsList()
+```
