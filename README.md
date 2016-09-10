@@ -27,7 +27,7 @@ eBusInstance.addListener(<Array>[Listener Config]);
 
 #### Listener Config
 ```javascript
-- @name : [Optional] Unique name to reference the listener
+- @name : [Optional] Unique name to reference the listener ( It should be a continuous string )
 - @event :[Array] List of events on which this listener will be attached
 - @routine : [Function] Routine which will be executed upon event trigger
 - @context : [Object][Optional] External Context which will be passed to the routine upon execution
