@@ -4,7 +4,7 @@
 
 eBus is an implementation of an Event Bus, it's open-source under MIT license
 
-# Features
+## Features
     - Entities can attach a listener to an event
     - Entites can remove an attached listener for an event
     - Entities can trigger and event
@@ -13,23 +13,39 @@ eBus is an implementation of an Event Bus, it's open-source under MIT license
         - Pass explicit context to the listener routine
         - Attach a listener to multiple events
 
-# Examples
 
-```sh
+## Adding eBus in your project
+
 let EBusInstance = new eBus();
 
-EBusInstance.addListener([{
-    name: <Listener Unique Id>,
-    event: [<, seperated events for which the listener need to be attached>],
-    routine: <listener routine which will be executed on event trigger>,
-    options: {
-        throttle - <timestamp> timestamp representing the duration for which the attached listener on the events will be throttled>,
-        target - <string> Restricting the execution of binded routine based on the publisher of the event,
-        once - <boolean> default false, true mean the listener will be executed only once,
-        rememberPast - <boolean> triggers the routine upon listener registration if the event has occued in the past with the paylod of the most latest past triggered event
+## API
+```javascript
+eBusInstance.addListener(<Array>[Listener Config]);
+```
+
+#### Listener Config
+```javascript
+- @name : [Optional] Unique name to reference the listener
+- @event :[Array][Required] List of events on which this listener will be attached
+- @routine : [Function] Routine which will be executed upon event trigger
+- @context : [Object][Optional] External Context which will be passed to the routine upon execution
+- @options : [Object][Optional]
+--   @once : [Boolean][Default = false] Will execute the listener only once
+--   @rememberPast : [Boolean] [Default = false] Will execute the listener routine upon registration in case the attached even was triggered in the past, the context and payload will be past of the most recend past event trigger
+--   @target : [String] Represents the publisher who is triggering the event
+--   @throttle :[Timestamp] The event execution will be throttled for the specified time period
+
+
+{
+	name : <string>,
+    event : <Array>,
+    routine : <function>,
+    context : <object>,
+    options : {
+    	once : <boolean>,
+        rememberPast : <boolean>,
+        target: <string>,
+        throttle: <timestamp>
     }
-}]);
-
-
-EBusInstance.trigger(<string>[Event Name], <string>[Publisher], <object>[Payload]);
+ }
 ```
