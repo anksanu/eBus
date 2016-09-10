@@ -134,7 +134,7 @@ for (let testCase of TestCaseSuite) {
     if (payload.value === result) {
         console.info("Test Passed");
     } else {
-        console.info("Test Failed")
+        console.error("Test Failed")
     }
     console.groupEnd();
 }

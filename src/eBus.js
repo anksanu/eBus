@@ -1,8 +1,12 @@
 /**
  * eBus is a JavaScript Event Pub Sub Bus
- * - Entities can attach a listener to an event
- * - Entities can publish events
- * - Entities can listen to events that happened in the past
+ * - Entities can attach a listener to an event ( Complete )
+ * - Entities can publish events ( Complete )
+ * - Entities can listen to events that happened in the past ( Complete )
+ * - Entities can add throttling to listeners execution ( Complete )
+ * -- Throtlling also throttles in case the events are pushed in a list during add listener
+ * -- In such case throttling effect both the events
+ * - Supports Grouping of events ( ?? )
  */
 
 import EventClass from './models/event';

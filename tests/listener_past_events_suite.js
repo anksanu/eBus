@@ -20,7 +20,6 @@ EBusInstance.addListener([{
     routine: function (payload) {
         console.log('Raised Condition');
         matchString += '1'
-        console.log(matchString);
     },
     options: {
         target: 'First_Publisher',
@@ -28,3 +27,12 @@ EBusInstance.addListener([{
         rememberPast : true
     }
 }]);
+
+setTimeout(()=> {
+    if(matchString == result){
+        console.info('Test Passed');
+    } else {
+        console.error('Test Failed');
+    }
+    console.groupEnd();
+},2000);

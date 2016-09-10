@@ -34,6 +34,7 @@ class Listener {
         this._creationTimestamp = Utils.getCurrentTime();
         this._target = options.target || void 0;
         this._lastExecutionTimestamp = void 0;
+        this._throttleTimestamp = options.throttle || 0;
     }
 
     /**
@@ -46,7 +47,15 @@ class Listener {
     execute(target, payload) {
         Logger.log(this._listenerUid + ' listener execution begins');
         if(this._executeOnce && this._executionCount > 0) {
-            Logger.log(this._listenerUid , ' listener execution skipped..');
+            Logger.log(this._listenerUid , 'listener execution skipped.. due to once flag');
+            return void 0;
+        }
+
+        let currentTime = Utils.getCurrentTime(),
+            timePostLastExecution = currentTime - this._lastExecutionTimestamp;
+
+        if(this._lastExecutionTimestamp && timePostLastExecution <= this._throttleTimestamp) {
+            Logger.log(this._listenerUid, 'listener execution skipped.. due to enforced throttle');
             return void 0;
         }
 
