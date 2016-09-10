@@ -16,17 +16,18 @@ eBus is an implementation of an Event Bus, it's open-source under MIT license
 
 ## Adding eBus in your project
 
-let EBusInstance = new eBus();
+let eBusInstance = new eBus();
 
 ## API
+### Add Listener
 ```javascript
 eBusInstance.addListener(<Array>[Listener Config]);
 ```
 
 #### Listener Config
-```javascript
+```
 - @name : [Optional] Unique name to reference the listener
-- @event :[Array][Required] List of events on which this listener will be attached
+- @event :[Array] List of events on which this listener will be attached
 - @routine : [Function] Routine which will be executed upon event trigger
 - @context : [Object][Optional] External Context which will be passed to the routine upon execution
 - @options : [Object][Optional]
@@ -34,7 +35,6 @@ eBusInstance.addListener(<Array>[Listener Config]);
 --   @rememberPast : [Boolean] [Default = false] Will execute the listener routine upon registration in case the attached even was triggered in the past, the context and payload will be past of the most recend past event trigger
 --   @target : [String] Represents the publisher who is triggering the event
 --   @throttle :[Timestamp] The event execution will be throttled for the specified time period
-
 
 {
 	name : <string>,
@@ -49,3 +49,13 @@ eBusInstance.addListener(<Array>[Listener Config]);
     }
  }
 ```
+
+### Trigger Event
+```
+- @eventName : [String] Name of the event which needs to be triggered
+- @targetName : [String][Default = null] Name of the publisher who is publishing the event, this will only trigger the listeners with this publisher as target
+- @payload : [Object] Payload which will passes as parameter while executing the listener routine
+
+eBusInstance.trigger(<eventName>, <targetName>, <payload>);
+```
+
