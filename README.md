@@ -22,6 +22,7 @@ let eBusInstance = new eBus();
 ## API
 ### Add Listener
 ```javascript
+- @returns : [Array] List of listener id's
 eBusInstance.addListener(<Array>[Listener Config]);
 ```
 
@@ -49,6 +50,14 @@ eBusInstance.addListener(<Array>[Listener Config]);
         throttle: <timestamp>
     }
  }
+```
+
+### Remove Listener
+```javascript
+- @listenerName : [String] Listener id of the listener that need to be removed from the bus.
+- @eventName : [String] Event Name for which this listener needs to be removed.
+
+eBusInstance.removeListener(<listenerName>, <eventName>)
 ```
 
 ### Trigger Event
