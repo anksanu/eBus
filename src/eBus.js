@@ -36,8 +36,8 @@ class eBus {
      * }
      * options : {
      *      once : <boolean> Makes the function to get executed only once on trigger,
-     *      rememberPast: <boolean>, [ Pending ]
-     *      throttle : <timestamp>, [ Pending ]
+     *      rememberPast: <boolean>,
+     *      throttle : <timestamp>,
      *      target : <string>
      * }
      *

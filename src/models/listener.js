@@ -1,20 +1,29 @@
 import Logger from './../logger';
 import Utils from '../utils';
 
-function validateConstructorParams(objUnderValidation) {
-    let listenerUid = objUnderValidation[0],
-        listenerSideEffectsRoutine = objUnderValidation[1],
-        validationVerdict = true;
-
-    if (!listenerUid) {
-        Logger.error('listenerUid is not found');
-        validationVerdict = false;
-    }
-
-    return validationVerdict;
-}
-
+/**
+ * Class : Listener
+ */
 class Listener {
+
+    /**
+     * Validates the constructor arguments
+     *
+     * @param objUnderValidation - Constructor arguments during this class Object creation
+     * @returns {boolean} - Validation verdict
+     */
+    static validateConstructorParams(objUnderValidation) {
+        let listenerUid = objUnderValidation[0],
+            listenerSideEffectsRoutine = objUnderValidation[1],
+            validationVerdict = true;
+
+        if (!listenerUid) {
+            Logger.error('listenerUid is not found');
+            validationVerdict = false;
+        }
+
+        return validationVerdict;
+    }
 
     /**
      *
@@ -22,7 +31,7 @@ class Listener {
      * @param listenerSideEffectRoutine
      */
     constructor(listenerUid, listenerSideEffectRoutine, context, options = {}) {
-        if (!validateConstructorParams(arguments)) {
+        if (!this.constructor.validateConstructorParams(arguments)) {
             return;
         }
 
@@ -46,20 +55,20 @@ class Listener {
      */
     execute(target, payload) {
         Logger.log(this._listenerUid + ' listener execution begins');
-        if(this._executeOnce && this._executionCount > 0) {
-            Logger.log(this._listenerUid , 'listener execution skipped.. due to once flag');
+        if (this._executeOnce && this._executionCount > 0) {
+            Logger.log(this._listenerUid, 'listener execution skipped.. due to once flag');
             return void 0;
         }
 
         let currentTime = Utils.getCurrentTime(),
             timePostLastExecution = currentTime - this._lastExecutionTimestamp;
 
-        if(this._lastExecutionTimestamp && timePostLastExecution <= this._throttleTimestamp) {
+        if (this._lastExecutionTimestamp && timePostLastExecution <= this._throttleTimestamp) {
             Logger.log(this._listenerUid, 'listener execution skipped.. due to enforced throttle');
             return void 0;
         }
 
-        if(this._target!= void 0 && target != this._target){
+        if (this._target != void 0 && target != this._target) {
             Logger.log(this._listenerUid, ' listener execution skipped due to unmatching target');
             return void 0;
         }
