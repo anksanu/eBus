@@ -11,6 +11,42 @@
     (function (eBus) {
         var eBusInstance = new eBus();
 
+        //argument could be an Object or an Array of Object
+        eBusInstance.addListener({
+            name: 'Listener_1', //optional ( if given it should be without space )
+            event: ['First_Event', 'Second_Event'],
+            routine: function (payload) {
+                for(var i=0 ;i< payload.count; i++){
+                    console.info('Hello World');
+                }
+            },
+            options: {
+                target: 'First_Publisher',
+                once: false,
+                rememberPast : false
+            }
+        });
+
+        // Hello World will be printed 2 times
+        eBusInstance.trigger('First_Event', 'First_Publisher', {
+            count : 2
+        });
+
+        // Hello World will be printed 0 times
+        // Since the Listener 1 is only bound with target 'First_Publisher'
+        eBusInstance.trigger('First_Event', void 0, {
+            count : 1
+        });
+
+        // Removing the Listener_1 from First_Event
+        eBusInstance.removeListener('Listener_1','First_Event');
+
+        // Hello World will be printed 0 times
+        // Since the Listener to First_Event was removed in the above line
+        eBusInstance.trigger('First_Event', 'First_Publisher', {
+            count : 2
+        });
+
     })(eBus);
 
 </script>
