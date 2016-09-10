@@ -15,8 +15,9 @@ eBus is an implementation of an Event Bus, it's open-source under MIT license
 
 
 ## Adding eBus in your project
-
+```javascript
 let eBusInstance = new eBus();
+```
 
 ## API
 ### Add Listener
@@ -25,7 +26,7 @@ eBusInstance.addListener(<Array>[Listener Config]);
 ```
 
 #### Listener Config
-```
+```javascript
 - @name : [Optional] Unique name to reference the listener
 - @event :[Array] List of events on which this listener will be attached
 - @routine : [Function] Routine which will be executed upon event trigger
@@ -51,7 +52,7 @@ eBusInstance.addListener(<Array>[Listener Config]);
 ```
 
 ### Trigger Event
-```
+```javascript
 - @eventName : [String] Name of the event which needs to be triggered
 - @targetName : [String][Default = null] Name of the publisher who is publishing the event, this will only trigger the listeners with this publisher as target
 - @payload : [Object] Payload which will passes as parameter while executing the listener routine
