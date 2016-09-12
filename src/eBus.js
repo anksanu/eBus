@@ -82,16 +82,27 @@ class eBus {
      * @param listenerName {string}[Required] Uuid of the listner attaching context who want's to remove this listener.
      * @param eventName {string}[Required] Name of the event that need not to be listened any more.
      */
-    removeListener(listenerName, eventName) {
+    removeListener(listenerName, eventName, callbackRoutine) {
         let listenersList = this._eventListenerMap.get(eventName) || [];
+        let removedListener = [];
         let updatedListnersList = [];
 
         for (let listener of listenersList) {
             if (listener.listenerUid != listenerName) {
                 updatedListnersList.push(listener);
+            } else {
+                removedListener.push(listener);
             }
         }
         this._eventListenerMap.set(eventName, updatedListnersList);
+
+        removedListener = removedListener.map((listener)=> {
+            return listener.listenerUid;
+        });
+
+        (removedListener.length && callbackRoutine) ? callbackRoutine(removedListener) : void 0;
+
+        return removedListener;
     }
 
     /**

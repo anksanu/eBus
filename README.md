@@ -58,8 +58,9 @@ eBusInstance.addListener(<Array>[Listener Config]);
 ```javascript
 - @listenerName : [String] Listener id of the listener that need to be removed from the bus.
 - @eventName : [String] Event Name for which this listener needs to be removed.
+- @callback : [Function][Optional]  callback routine that needs to be executed post removing the listener.
 
-eBusInstance.removeListener(<listenerName>, <eventName>)
+eBusInstance.removeListener(<listenerName>, <eventName>, <callback>)
 ```
 
 ### Trigger Event

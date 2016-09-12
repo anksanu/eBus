@@ -28,6 +28,13 @@ EBusInstance.addListener([{
     }
 }]);
 
+EBusInstance.removeListener('1', 'First_Event', (listenerIds) => {
+    console.log(listenerIds);
+    console.info('The Listener is removed');
+});
+
+EBusInstance.trigger('First_Event', 'First_Publisher', {});
+
 setTimeout(()=> {
     if(matchString == result){
         console.info('Test Passed');
