@@ -86,29 +86,26 @@ class eBus {
      */
     removeListener(listenerName, eventName, callbackRoutine) {
         let listenersList = this._eventListenerMap.get(eventName) || [];
-        let removedListener = [];
+        let removedListenersList = [];
         let updatedListnersList = [];
+        
+        updatedListnersList = listenersList.filter((listener)=> {
+            return listenerName ? listener.listenerUid != listenerName : false;
+        });
 
-        if (!listenerName) {
-            removedListener = removedListener.concat(listenersList);
-        } else {
-            for (let listener of listenersList) {
-                if (listener.listenerUid != listenerName) {
-                    updatedListnersList.push(listener);
-                } else {
-                    removedListener.push(listener);
-                }
-            }
-        }
         this._eventListenerMap.set(eventName, updatedListnersList);
 
-        removedListener = removedListener.map((listener)=> {
+        removedListenersList = listenersList.filter((listener)=> {
+            return listenerName ? (listener.listenerUid == listenerName) : true;
+        });
+
+        removedListenersList = removedListenersList.map((listener)=> {
             return listener.listenerUid;
         });
 
-        (removedListener.length && callbackRoutine) ? callbackRoutine(removedListener) : void 0;
+        (removedListenersList.length && callbackRoutine) ? callbackRoutine(removedListenersList) : void 0;
 
-        return removedListener;
+        return removedListenersList;
     }
 
     /**
