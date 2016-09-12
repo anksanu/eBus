@@ -9,7 +9,7 @@
  * - Supports Grouping of events ( ?? )
  */
 
-import Utils from './utils';
+import Utils from './libs/utils';
 import ListenerClass from './models/listener';
 import Logger from './logger';
 
