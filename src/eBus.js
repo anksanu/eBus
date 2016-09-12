@@ -9,7 +9,6 @@
  * - Supports Grouping of events ( ?? )
  */
 
-import EventClass from './models/event';
 import Utils from './utils';
 import ListenerClass from './models/listener';
 import Logger from './logger';
@@ -19,7 +18,7 @@ function executeListenerRoutine(listener, target, payload) {
 }
 
 class eBus {
-    constructor(options) {
+    constructor() {
         this._eventListenerMap = new Map();
         this._eventTriggeredMap = new Map();
     }
@@ -42,7 +41,7 @@ class eBus {
      *      target : <string>
      * }
      *
-     * @return <Array> Returns an array of listenerId's
+     * @return [Array] Returns an array of listenerId's
      */
     addListener(listenerPayload) {
         let listenerIdsList = [];
@@ -66,7 +65,7 @@ class eBus {
                  * Executing the listener routine in case the listener wants to listen to events that happened in the past
                  */
                 if (isListenToPastEvents) {
-                    let isEventTriggeredInPast = this._eventTriggeredMap.has(event) ? true : false,
+                    let isEventTriggeredInPast = !!this._eventTriggeredMap.has(event),
                         lastEventPayload = isEventTriggeredInPast ? this._eventTriggeredMap.get(event) : void 0;
 
                     isEventTriggeredInPast ? executeListenerRoutine(listenerObj, lastEventPayload.target, lastEventPayload.payload) : void 0;
@@ -85,10 +84,10 @@ class eBus {
      * @param callbackRoutine {function} [Optional] Callback Routine to be called post removing of event listeners
      */
     removeListener(listenerName, eventName, callbackRoutine) {
-        let listenersList = this._eventListenerMap.get(eventName) || [];
-        let removedListenersList = [];
-        let updatedListnersList = [];
-        
+        let listenersList = this._eventListenerMap.get(eventName) || [],
+            removedListenersList,
+            updatedListnersList;
+
         updatedListnersList = listenersList.filter((listener)=> {
             return listenerName ? listener.listenerUid != listenerName : false;
         });
